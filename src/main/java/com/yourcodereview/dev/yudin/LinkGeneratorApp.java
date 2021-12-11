@@ -1,4 +1,4 @@
-package com.yourcodereview.dev.yudin.linkgenerator;
+package com.yourcodereview.dev.yudin;
 
 public class LinkGeneratorApp {
 
