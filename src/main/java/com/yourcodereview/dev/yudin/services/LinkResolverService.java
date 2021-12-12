@@ -8,7 +8,8 @@ import java.util.Map;
 
 public interface LinkResolverService {
 
-    ShortedLink getShortLink(String input, Map<String, String> shortedLinksData,
+    ShortedLink getShortLink(String input,
+                             Map<String, String> shortedLinksData,
                              Map<String, String> originalLinksData,
                              Map<String, Integer> countData,
                              List<StatsObject> linksStats);

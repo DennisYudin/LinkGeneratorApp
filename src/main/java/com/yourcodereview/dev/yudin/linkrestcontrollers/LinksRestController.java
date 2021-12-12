@@ -78,6 +78,10 @@ public class LinksRestController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage,
             @RequestParam(value = "count", required = false, defaultValue = "2") Integer pageSize) {
 
+        if (currentPage <= 0 || pageSize <= 0) {
+            throw new IllegalArgumentException("page cannot be less or equal zero");
+        }
+
         List<StatsObject> statsObjects = linkResolverService.getSortedList(currentPage, pageSize, linksAllStats);
 
         return statsObjects;
