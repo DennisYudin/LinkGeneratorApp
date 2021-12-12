@@ -3,7 +3,7 @@ package com.yourcodereview.dev.yudin.linkrestcontrollers;
 import com.yourcodereview.dev.yudin.entities.OriginalLink;
 import com.yourcodereview.dev.yudin.entities.ShortedLink;
 import com.yourcodereview.dev.yudin.entities.StatsObject;
-import com.yourcodereview.dev.yudin.services.LinkService;
+import com.yourcodereview.dev.yudin.services.LinkResolverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,24 +24,27 @@ public class LinksRestController {
     private List<StatsObject> linksAllStats = new ArrayList<>();
 
     {
-        linksAllStats.add(new StatsObject("RAZLQzKQqh", "https://stackoverflow.com/questions/64923043/cannot", 0, 3));
-        linksAllStats.add(new StatsObject("VS8LjLrl11", "https://www.codebyamir.com/blog/sort", 0, 10));
-        linksAllStats.add(new StatsObject("6gTWhGP0Ci", "https://www.google.com/webhp?hl", 0, 5));
-        linksAllStats.add(new StatsObject("xpWGpnIwtC", "https://translate.yandex.ru/?utm_source=main", 0, 19));
-        linksAllStats.add(new StatsObject("LcioJdpL5g", "https://yandex.ru/", 0, 7));
+        linksAllStats.add(new StatsObject("/1/RAZLQzKQqh", "https://stackoverflow.com/questions/64923043/cannot", 0, 3));
+        linksAllStats.add(new StatsObject("/1/VS8LjLrl11", "https://www.codebyamir.com/blog/sort", 0, 10));
+        linksAllStats.add(new StatsObject("/1/6gTWhGP0Ci", "https://www.google.com/webhp?hl", 0, 5));
+        linksAllStats.add(new StatsObject("/1/xpWGpnIwtC", "https://translate.yandex.ru/?utm_source=main", 0, 19));
+        linksAllStats.add(new StatsObject("/1/LcioJdpL5g", "https://yandex.ru/", 0, 7));
     }
 
     @Autowired
-    public LinkService linkService;
+    public LinkResolverService linkResolverService;
 
     @PostMapping("/generate")
     public ShortedLink generateNewLink(@RequestBody OriginalLink link) {
 
         String originalLink = link.getOriginal();
 
-        ShortedLink shortedLink = linkService.getShortedLink(
-                originalLink, shortedOriginalLinks,
-                originalShortedLinks, linksCountData, linksAllStats);
+        ShortedLink shortedLink = linkResolverService.getShortLink(
+                originalLink,
+                shortedOriginalLinks,
+                originalShortedLinks,
+                linksCountData,
+                linksAllStats);
 
         return shortedLink;
     }
@@ -49,7 +52,11 @@ public class LinksRestController {
     @GetMapping("/1/{link}")
     public String redirectToOriginalLink(@PathVariable String link) {
 
-        String originalLink = linkService.redirectLink(link, shortedOriginalLinks, linksCountData);
+        String originalLink = linkResolverService.redirectToOriginalLink(
+                link,
+                shortedOriginalLinks,
+                linksCountData,
+                linksAllStats);
 
         return originalLink;
     }
@@ -57,9 +64,11 @@ public class LinksRestController {
     @GetMapping("/stats/{link}")
     public StatsObject showLinkStats(@PathVariable String link) {
 
-        StatsObject statsObject = linkService.showLinkStats(
-                link, shortedOriginalLinks,
-                linksCountData, linksAllStats);
+        StatsObject statsObject = linkResolverService.showLinkStats(
+                link,
+                shortedOriginalLinks,
+                linksCountData,
+                linksAllStats);
 
         return statsObject;
     }
@@ -69,7 +78,7 @@ public class LinksRestController {
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer currentPage,
             @RequestParam(value = "count", required = false, defaultValue = "2") Integer pageSize) {
 
-        List<StatsObject> statsObjects = linkService.getSortedStatsList(currentPage, pageSize, linksAllStats);
+        List<StatsObject> statsObjects = linkResolverService.getSortedList(currentPage, pageSize, linksAllStats);
 
         return statsObjects;
     }
