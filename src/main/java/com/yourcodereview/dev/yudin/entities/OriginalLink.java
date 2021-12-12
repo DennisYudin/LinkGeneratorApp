@@ -1,0 +1,28 @@
+package com.yourcodereview.dev.yudin.entities;
+
+public class OriginalLink {
+
+    private String original;
+
+    public OriginalLink() {
+    }
+
+    public OriginalLink(String original) {
+        this.original = original;
+    }
+
+    public String getOriginal() {
+        return original;
+    }
+
+    public void setOriginal(String original) {
+        this.original = original;
+    }
+
+    @Override
+    public String toString() {
+        return "OriginalLink{" +
+                "original='" + original + '\'' +
+                '}';
+    }
+}
