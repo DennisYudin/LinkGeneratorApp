@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Log4j
 @Service
-public class LinkServiceImpl implements LinkResolverService {
+public class LinkResolverServiceImpl implements LinkResolverService {
 
     @Autowired
     private Resolver linkResolver;

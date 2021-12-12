@@ -135,7 +135,7 @@ public class LinkResolverTest {
     }
 
     @Test
-    void getSortedList_ShouldReturnSortedListStatsObjects_WhenInputIsPageSize() {
+    void getSortedList_ShouldReturnSortedListStatsObjects_WhenInputIsPageAndSize() {
 
         int page = 1;
         int size = 5;
