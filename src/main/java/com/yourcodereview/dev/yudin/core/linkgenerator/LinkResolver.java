@@ -16,7 +16,8 @@ public class LinkResolver implements Resolver {
     private Random random = new Random();
 
     @Override
-    public ShortedLink generateShortLink(String input, Map<String, String> shortedLinksData,
+    public ShortedLink generateShortLink(String input,
+                                         Map<String, String> shortedLinksData,
                                          Map<String, String> originalLinksData,
                                          Map<String, Integer> countData,
                                          List<StatsObject> linksStats) {
@@ -93,6 +94,7 @@ public class LinkResolver implements Resolver {
 
             return originalLink;
         }
+        log.error("There is no original link");
         throw new IllegalArgumentException("There is no original link");
     }
 
@@ -116,6 +118,7 @@ public class LinkResolver implements Resolver {
                 return originalLink;
             }
         }
+        log.error("There is no original link");
         throw new IllegalArgumentException("There is no original link");
     }
 
@@ -143,6 +146,7 @@ public class LinkResolver implements Resolver {
                 return object;
             }
         }
+        log.error("There is no stats for link: " + input);
         throw new IllegalArgumentException("There is no stats for link: " + input);
     }
 
@@ -161,6 +165,7 @@ public class LinkResolver implements Resolver {
         log.debug("Amount elements to get: " + amount);
 
         if (offset > linksStats.size() || amount > linksStats.size()) {
+            log.error("There is no so many elements. We have only " + linksStats.size() + " elements.");
             throw new IllegalArgumentException(
                     "There is no so many elements. We have only " + linksStats.size() + " elements.");
         } else {

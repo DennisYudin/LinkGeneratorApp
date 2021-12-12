@@ -18,4 +18,11 @@ public class ShortedLink {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "ShortedLink{" +
+                "link='" + link + '\'' +
+                '}';
+    }
 }

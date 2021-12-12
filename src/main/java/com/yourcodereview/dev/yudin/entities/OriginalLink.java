@@ -18,4 +18,11 @@ public class OriginalLink {
     public void setOriginal(String original) {
         this.original = original;
     }
+
+    @Override
+    public String toString() {
+        return "OriginalLink{" +
+                "original='" + original + '\'' +
+                '}';
+    }
 }
